@@ -1,0 +1,40 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AssumeCostExplorerRoleInEachMemberAccount",
+      "Effect": "Allow",
+      "Action": "sts:AssumeRole",
+      "Resource": [
+        "arn:aws:iam::111111111111:role/WeeklyBillingCostExplorerReadOnly",
+        "arn:aws:iam::222222222222:role/WeeklyBillingCostExplorerReadOnly",
+        "arn:aws:iam::333333333333:role/WeeklyBillingCostExplorerReadOnly",
+        "arn:aws:iam::444444444444:role/WeeklyBillingCostExplorerReadOnly",
+        "arn:aws:iam::555555555555:role/WeeklyBillingCostExplorerReadOnly",
+        "arn:aws:iam::666666666666:role/WeeklyBillingCostExplorerReadOnly"
+      ]
+    },
+    {
+      "Sid": "ReadWriteTrackerWorkbook",
+      "Effect": "Allow",
+      "Action": ["s3:GetObject", "s3:PutObject"],
+      "Resource": "arn:aws:s3:::your-billing-tracker-bucket/AWS_Weekly_Billing_Tracker.xlsx"
+    },
+    {
+      "Sid": "WriteLambdaLogs",
+      "Effect": "Allow",
+      "Action": [
+        "logs:CreateLogGroup",
+        "logs:CreateLogStream",
+        "logs:PutLogEvents"
+      ],
+      "Resource": "arn:aws:logs:*:*:*"
+    },
+    {
+      "Sid": "OptionalSnsNotification",
+      "Effect": "Allow",
+      "Action": "sns:Publish",
+      "Resource": "arn:aws:sns:*:*:weekly-billing-tracker-notifications"
+    }
+  ]
+}
